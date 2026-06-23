@@ -6,7 +6,7 @@ on:
 
 jobs:
   check-runner:
-    runs-on: self-hosted   # targets your MacBook runner
+    runs-on: mitalis-MacBook-Air  # targets your MacBook runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
