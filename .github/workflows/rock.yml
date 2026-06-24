@@ -22,8 +22,14 @@ jobs:
              "tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}
 
       # Simple az login check
-      - name: Verify Azure CLI Login
+      - name: Run az login
         shell: pwsh
         run: |
-          Write-Output "Running simple az login check..."
+          Write-Output "🔑 Running az login with Service Principal..."
+          az login --service-principal `
+            --username 98df0580-39b3-4c8d-80ec-5143ae025113 `
+            --password $env:AZURE_CLIENT_SECRET `
+            --tenant c85c100b-90ef-4945-b745-30b32789f421
+
+          # Verify login
           az account show
