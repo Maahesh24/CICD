@@ -1,18 +1,20 @@
-name: Runner Test
+# File: .github/workflows/workflow.yml
+
+name: Deploy to Staging
 
 on:
-  push:
-    branches: [ main ]   # triggers when you push to main branch
+  workflow_dispatch:
 
 jobs:
-  check-runner:
-    runs-on: self-hosted   # targets your MacBook runner
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  my_job:
+    name: deploy to staging
+    runs-on: ubuntu-latest
 
-      - name: Print runner info
-        run: |
-          echo "✅ Runner is online and working!"
-          echo "Runner name: $RUNNER_NAME"
-          echo "OS: $RUNNER_OS"
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install Dependencies
+        run: npm install
