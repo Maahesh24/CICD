@@ -1,0 +1,17 @@
+name: Runner Test
+
+on:
+  push:
+    branches: [ main ]   # triggers when you push to main branch
+
+jobs:
+  check-runner:
+    runs-on: mitalis-MacBook-Air  # targets your MacBook runner
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+
+    name: azure login
+    creds: '{"clientId":"${{ 98df0580-39b3-4c8d-80ec-5143ae025113 }}","clientSecret":"${{ 4587ec92-c7ef-4da6-bffc-06dd5ce7649c }}","subscriptionId":"${{ 669e5a53-2952-45fd-a198-1f4a3bdba879}}","tenantId":"${{ c85c100b-90ef-4945-b745-30b32789f421}}"}'
