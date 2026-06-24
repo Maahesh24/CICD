@@ -22,8 +22,7 @@ jobs:
         run: npm install
 
       # Azure Login using Service Principal
-      - name: Login to Azure
+      - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ef918e69-be10-4267-9ac6-87000e61deb6
-          client-secret: ${{ secrets.AZURE
+          creds: '{"clientId":"98df0580-39b3-4c8d-80ec-5143ae025113","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"669e5a53-2952-45fd-a198-1f4a3bdba879","tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}'
