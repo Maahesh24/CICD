@@ -11,18 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Setup Node.js
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-
-      # Install dependencies
-      - name: Install Dependencies
-        run: npm install
-
       # Azure Login using Service Principal
       - name: Azure Login
         uses: azure/login@v3
         with:
-          creds: '{"clientId":"98df0580-39b3-4c8d-80ec-5143ae025113","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"669e5a53-2952-45fd-a198-1f4a3bdba879","tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}'
+          creds: '{"clientId":"98df0580-39b3-4c8d-80ec-5143ae025113","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"669e5a53-2952-45fd-a198-1f4a
