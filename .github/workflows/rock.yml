@@ -21,10 +21,9 @@ jobs:
              "subscriptionId":"669e5a53-2952-45fd-a198-1f4a3bdba879",
              "tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}
 
-      # Run PowerShell script
-      - name: Run PowerShell Script
+      # Simple az login check
+      - name: Verify Azure CLI Login
         shell: pwsh
         run: |
-          Write-Output "✅ Azure login successful, running PowerShell commands..."
-          # Example: list resource groups
-          az group list --output table
+          Write-Output "Running simple az login check..."
+          az account show
