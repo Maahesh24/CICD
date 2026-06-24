@@ -1,4 +1,4 @@
-# File: .github/workflows/rock.yml
+# File: .github/workflows/workflow.yml
 
 name: Deploy to Staging
 
@@ -8,22 +8,20 @@ on:
 jobs:
   my_job:
     name: deploy to staging
-    runs-on: [self-hosted, mitalis-MacBook-Air]
+    runs-on: [self-hosted, macOS, X64]
 
     steps:
-      # Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Azure Login using Service Principal
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v3
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: >-
+            {"clientId":"98df0580-39b3-4c8d-80ec-5143ae025113",
+             "clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}",
+             "subscriptionId":"669e5a53-2952-45fd-a198-1f4a3bdba879",
+             "tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}
 
-      # Verify Azure login
-      - name: Verify Azure login
+      - name: Verify Azure CLI Login
         shell: pwsh
         run: |
-          Write-Output "✅ Azure login successful"
+          Write-Output "🔑 Checking Azure login..."
           az account show
