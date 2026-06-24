@@ -1,0 +1,30 @@
+# File: .github/workflows/workflow.yml
+
+name: Deploy to Staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  my_job:
+    name: deploy to staging
+    runs-on: [self-hosted, mitalis-MacBook-Air]
+
+    steps:
+      # Azure Login using Service Principal
+      - name: Azure Login
+        uses: azure/login@v3
+        with:
+          creds: >-
+            {"clientId":"98df0580-39b3-4c8d-80ec-5143ae025113",
+             "clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}",
+             "subscriptionId":"669e5a53-2952-45fd-a198-1f4a3bdba879",
+             "tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}
+
+      # Run PowerShell script
+      - name: Run PowerShell Script
+        shell: pwsh
+        run: |
+          Write-Output "✅ Azure login successful, running PowerShell commands..."
+          # Example: list resource groups
+          az group list --output table
