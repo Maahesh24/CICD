@@ -1,5 +1,3 @@
-# File: .github/workflows/workflow.yml
-
 name: Deploy to Staging
 
 on:
@@ -15,10 +13,10 @@ jobs:
         uses: azure/login@v3
         with:
           creds: >-
-            {"clientId":"98df0580-39b3-4c8d-80ec-5143ae025113",
+            {"clientId":"${{ secrets.AZURE_CLIENT_ID }}",
              "clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}",
-             "subscriptionId":"669e5a53-2952-45fd-a198-1f4a3bdba879",
-             "tenantId":"c85c100b-90ef-4945-b745-30b32789f421"}
+             "subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}",
+             "tenantId":"${{ secrets.AZURE_TENANT_ID }}"}
 
       - name: Verify Azure CLI Login
         shell: pwsh
