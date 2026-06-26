@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  # Step 1: Login + Checkout
   setup:
     name: Setup Environment
     runs-on: [self-hosted, macOS, X64]
@@ -24,6 +25,7 @@ jobs:
         with:
           terraform_version: 1.9.8
 
+  # Step 2: Terraform Init + Plan
   plan:
     name: Terraform Plan
     runs-on: [self-hosted, macOS, X64]
@@ -45,11 +47,23 @@ jobs:
           ARM_TENANT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
           ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
 
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: tfplan
+
+  # Step 3: Terraform Apply
   apply:
     name: Terraform Apply
     runs-on: [self-hosted, macOS, X64]
     needs: plan
     steps:
+      - name: Download plan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
         env:
