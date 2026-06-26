@@ -1,6 +1,6 @@
 # File: .github/workflows/demo.yml
 
-name: demo one
+name: repo
 
 on:
   workflow_dispatch:
