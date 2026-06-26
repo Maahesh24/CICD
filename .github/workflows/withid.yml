@@ -1,0 +1,43 @@
+# File: .github/workflows/workflow.yml
+
+name: test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  my_job:
+    name: test
+    runs-on: [self-hosted, macOS, X64]
+
+    steps:
+      # Azure Login using Service Principal (explicit IDs)
+      - name: Azure Login
+        uses: azure/login@v3
+        with:
+          client-id: "98df0580-39b3-4c8d-80ec-5143ae025113"
+          tenant-id: "c85c100b-90ef-4945-b745-30b32789f421"
+          subscription-id: "669e5a53-2952-45fd-a198-1f4a3bdba879"
+          client-secret: "gK8Q~yYuzLOmHCaH_T6a32wlNGjNYRbz1DS9ban"
+
+      # Checkout repo (Terraform files must be in repo)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
+
+      # Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # Terraform Apply
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
