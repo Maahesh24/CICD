@@ -1,4 +1,4 @@
-# File: .github/workflows/workflow.yml
+# File: .github/workflows/demo.yml
 
 name: demo one
 
@@ -14,10 +14,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: "98df0580-39b3-4c8d-80ec-5143ae025113"
-          tenant-id: "c85c100b-90ef-4945-b745-30b32789f421"
-          subscription-id: "669e5a53-2952-45fd-a198-1f4a3bdba879"
-          client-secret: "lgK8Q~yYuzLOmHCaH_T6a32wlNGjNYRbz1DS9ban"
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           auth-type: SERVICE_PRINCIPAL
 
       - name: Checkout repository
