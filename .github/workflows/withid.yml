@@ -14,10 +14,10 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          client-id: "98df0580-39b3-4c8d-80ec-5143ae025113"
+          tenant-id: "c85c100b-90ef-4945-b745-30b32789f421"
+          subscription-id: "669e5a53-2952-45fd-a198-1f4a3bdba879"
+          client-secret: "lgK8Q~yYuzLOmHCaH_T6a32wlNGjNYRbz1DS9ban"
           auth-type: SERVICE_PRINCIPAL
 
       - name: Checkout repository
