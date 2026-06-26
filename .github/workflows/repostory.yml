@@ -1,6 +1,6 @@
 # File: .github/workflows/demo.yml
 
-name: repository
+name: demo one
 
 on:
   workflow_dispatch:
@@ -13,9 +13,6 @@ jobs:
       - name: Azure Login
         uses: azure/login@v3
         with:
-          client-id: ${{ secrets.CLIENTID }}
-          tenant-id: ${{ secrets.TENANTID }}
-          subscription-id: ${{ secrets.SUBSCRIPTIONID }}
           creds: |
             {
               "clientId": "${{ secrets.CLIENTID }}",
