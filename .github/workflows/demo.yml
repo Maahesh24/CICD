@@ -1,17 +1,50 @@
-name: Runner Test
+# File: .github/workflows/demo.yml
+
+name: demo one
 
 on:
-  push:
-    branches: [ main ]   # triggers when you push to main branch
+  workflow_dispatch:
 
 jobs:
-  check-runner:
-    runs-on: mitalis-MacBook-Air  # targets your MacBook runner
+  # Step 1: Login + Checkout
+  setup:
+    name: Setup Environment
+    runs-on: [self-hosted, macOS, X64]
     steps:
-      - name: Checkout code
+      - name: Azure Login
+        uses: azure/login@v3
+        with:
+          client-id: "98df0580-39b3-4c8d-80ec-5143ae025113"
+          tenant-id: "c85c100b-90ef-4945-b745-30b32789f421"
+          subscription-id: "669e5a53-2952-45fd-a198-1f4a3bdba879"
+          client-secret: "lgK8Q~yYuzLOmHCaH_T6a32wlNGjNYRbz1DS9ban"
+          auth-type: SERVICE_PRINCIPAL
+
+      - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
 
+  # Step 2: Terraform Init + Plan
+  plan:
+    name: Terraform Plan
+    runs-on: [self-hosted, macOS, X64]
+    needs: setup
+    steps:
+      - name: Terraform Init
+        run: terraform init
 
-    name: azure login
-    creds: '{"clientId":"${{ 98df0580-39b3-4c8d-80ec-5143ae025113 }}","clientSecret":"${{ 4587ec92-c7ef-4da6-bffc-06dd5ce7649c }}","subscriptionId":"${{ 669e5a53-2952-45fd-a198-1f4a3bdba879}}","tenantId":"${{ c85c100b-90ef-4945-b745-30b32789f421}}"}'
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+  # Step 3: Terraform Apply
+  apply:
+    name: Terraform Apply
+    runs-on: [self-hosted, macOS, X64]
+    needs: plan
+    steps:
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
