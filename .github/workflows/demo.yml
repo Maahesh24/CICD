@@ -1,6 +1,6 @@
 # File: .github/workflows/demo.yml
 
-name: demo one
+name: final
 
 on:
   workflow_dispatch:
